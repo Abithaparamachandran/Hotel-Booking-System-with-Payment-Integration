@@ -15,7 +15,7 @@ This project is a **Hotel Room Booking System** built using **HTML, CSS, and PHP
 ---
 
 ## 🗂️ Folder Structure
-tasker/
+tasker/\n
 ├── index.html # Homepage
 ├── form.html # Booking form
 ├── rooms.html # Room listing
@@ -36,9 +36,7 @@ tasker/
 1. Make sure you have a local **XAMPP/WAMP/LAMP** server running.
 2. Place the `tasker` folder into your web directory:
    - For XAMPP: `htdocs/tasker`
-3. Visit in your browser:
-http://localhost/tasker/index.html
- PHP 7.x or later
+ PHP 8.1
 - Local server (XAMPP/LAMP/WAMP)
 - Internet connection
 - ## 📝 Notes
