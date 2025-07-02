@@ -1,0 +1,167 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LS Home Stay - Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .header nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        .header nav a:hover {
+            text-decoration: underline;
+        }
+        #payment {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            background-color: #f1f1f1;
+            padding: 20px;
+        }
+        .payment-form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .payment-form h2 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        .payment-form input,
+        .payment-form select,
+        .payment-form button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .payment-form input:focus,
+        .payment-form select:focus,
+        .payment-form button:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+        .payment-form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .payment-form button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>LS HOME STAY</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="rooms.html">Rooms</a>
+            <a href="payment.html">Payment</a>
+        </nav>
+    </header>
+
+    <section id="payment">
+        <div class="payment-form">
+            <h2>Payment Details</h2>
+            <form id="paymentForm" onsubmit="startPayment(event)">
+                <input type="text" id="name" placeholder="Name" required>
+                <input type="tel" id="mobile" placeholder="Mobile Number" required>
+                <select id="roomType" required>
+                    <option value="" disabled selected>Select Room Type</option>
+                    <option value="1">Standard Room - ₹1/hour</option>
+                    <option value="120">Suite Room - ₹120/hour</option>
+                    <option value="5999">Deluxe Suites - ₹5,999/day</option>
+                    <option value="2499">Deluxe Rooms - ₹2,499/day</option>
+                    <option value="999">Dormitory Accommodation - ₹999/bed</option>
+                    <option value="20000">Luxury Villas - ₹20,000/day</option>
+                    <option value="35000">Presidential Suites - ₹35,000/day</option>
+                    <option value="4000">Family Rooms - ₹4,000/day</option>
+                </select>
+                <label>Check-in Date</label>
+                <input type="date" id="checkin" required>
+                <label>Check-out Date</label>
+                <input type="date" id="checkout" required>
+                <button type="submit">Pay Now</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>Location: No.10 P.U Shanmugam Nagar, Polur Road, Thiruvannamalai</p>
+    </footer>
+
+    <script>
+        function startPayment(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const mobile = document.getElementById('mobile').value;
+            const roomType = document.getElementById('roomType').value;
+            const checkin = document.getElementById('checkin').value;
+            const checkout = document.getElementById('checkout').value;
+
+            if (!name || !mobile || !roomType || !checkin || !checkout) {
+                alert('Please fill all the required fields.');
+                return;
+            }
+
+            const options = {
+                key: "rzp_test_0itO1v0k0oLzXl", // Replace with your Razorpay Key ID
+                amount: roomType * 100, // Amount in paise (₹50 = 5000 paise)
+                currency: "INR",
+                name: "LS Home Stay",
+                description: "Room Booking Payment",
+                handler: function (response) {
+                    alert(`Payment Successful! Payment ID: ${response.razorpay_payment_id}`);
+                    window.location.href = "index.html"; // Redirect to the homepage after payment
+                },
+                prefill: {
+                    name: name,
+                    contact: mobile
+                },
+                theme: {
+                    color: "#3399cc"
+                }
+            };
+
+            const paymentObject = new Razorpay(options);
+            paymentObject.open();
+        }
+    </script>
+</body>
+</html>
