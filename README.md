@@ -16,8 +16,8 @@ This project is a **Hotel Room Booking System** built using **HTML, CSS, and PHP
 
 ## 🗂️ Folder Structure
 tasker/
-index.html # Homepage
- form.html # Booking form
+├──index.html # Homepage
+├── form.html # Booking form
 ├── rooms.html # Room listing
 ├── room.html # Single room detail
 ├── style.css # Stylesheet
